@@ -1,0 +1,6 @@
+#idCard{
+    width: 20rem;
+    height: 12rem;
+    background-image: url(../../assets/img/fondo.gif);
+    box-shadow: 0px 0px 0.3rem 0.1rem rgb(140, 139, 139);
+}
