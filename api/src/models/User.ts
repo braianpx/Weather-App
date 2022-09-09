@@ -6,7 +6,7 @@ export class User {
     @prop({type:String, unique:true, trim:true, required:true})
     username:string
 
-    @prop({type:String, unique:true, required:true, minlength:8})
+    @prop({type:String, required:true, minlength:7})
     password:string
 
     // encryptPassword(password:string){

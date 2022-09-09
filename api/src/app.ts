@@ -1,10 +1,11 @@
+require('./db');
+require('dotenv').config();
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-require('dotenv').config();
 const city = require('./routes/city/router');
 const favorites = require('./routes/favorites/router');
-require('./db');
+const user = require('./routes/user/router')
 
 const server = express();
 
@@ -24,8 +25,10 @@ server.use((_req, res, next) => {
 
 ////// Routes ////
 
+
 server.use('/city',city)
 server.use('/favorites',favorites)
+server.use('/user', user)
 
 
 //// Error Handler ////

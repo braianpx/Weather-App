@@ -33,7 +33,7 @@ const image:string = _req.body.image;
 try{
     if(image){
     const png = await axios.get(`http://openweathermap.org/img/wn/${image}@2x.png`);
-    res.status(200).render(png)
+    res.status(200).send(png.data)
     }
     res.status(404).json({data:'unexpected error'})
 }catch(err){
