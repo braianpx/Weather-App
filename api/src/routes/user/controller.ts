@@ -1,8 +1,11 @@
 import {Response, Request} from 'express';
 import UserModel from '../../models/User';
 import FavoritesModels from '../../models/Favorites';
+import jwt from 'jsonwebtoken';
 
-export const CreateUser = async (req:Request,res:Response) => {
+////// post signUp ///////
+
+export const signUp = async (req:Request,res:Response) => {
 const username:string = req.body.username;
 const password:string = req.body.password;
 try{
@@ -26,3 +29,50 @@ try{
 }
 };
 
+
+////// Post SignIn ////////////
+
+export const signIn = async (req:Request,res:Response) =>{
+const username:string = req.body.username;
+const password:string = req.body.password;
+try{
+    if(!username && !password){
+        res.status(404).json({data:'username and password is required'})    
+        return;
+    }else{
+        const user = await UserModel.findOne({username:username})
+        const passwordCorrect = user === null ? false : await user.comparePassword(password);
+
+    if (!(user && passwordCorrect)) {
+        res.status(401).json({data: "invalid user or password"});
+        return;
+      }else{
+
+        const userForToken = {
+          id: user._id,
+          username: user.username
+        };
+
+        const token = jwt.sign(userForToken, String(process.env.SECRETJWT), {
+          expiresIn: 60 * 60 * 24 * 7,
+        });
+
+        res.json({token:token, username:username});
+    }
+}
+}catch(err){
+res.status(401).json({data:err + ''})
+}
+};
+
+
+export const deleteAccount = async (req:Request,res:Response) => {
+const user = req.user;
+try{
+    const deleteUser = await UserModel.deleteOne(user)
+   if(deleteUser.acknowledged) res.status(200).send('User deleted successfully')
+   else res.status(404).json({data:'unexpected error'})
+}catch(err){
+    res.status(404).json({data:err+''})
+}
+}

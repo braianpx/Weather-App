@@ -1,8 +1,9 @@
 require('./db');
-require('dotenv').config();
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import passport from 'passport';
+import JWTStrategy from './middlewares/auth';
 const city = require('./routes/city/router');
 const favorites = require('./routes/favorites/router');
 const user = require('./routes/user/router')
@@ -14,6 +15,10 @@ server.use(cors());
 server.use(express.json()); ////// transforma la req de body en json
 server.use(morgan('dev'));
 server.use(express.urlencoded({extended:false}))
+server.use(passport.initialize())
+passport.use(JWTStrategy)
+
+////////
 
 server.use((_req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from

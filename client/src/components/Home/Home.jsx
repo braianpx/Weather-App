@@ -4,12 +4,24 @@ import SearchBar from '../SearchBar/SearchBar.jsx';
 import CarouselFav from '../CarouselFav/CarouselFav.jsx';
 import ContainerCards from '../ConteinerCards/ConteinerCards.jsx';
 import { Londres } from '../../data.js';
-import './Home.css'
+import './Home.css';
+import { addCityDetail, getCities } from '../../redux/actions/index';
+import { useDispatch, useSelector } from 'react-redux'  
 
 const Home = () =>{
 
+const citiesHome = useSelector(state => state.citiesHome)
+const cityDetail = useSelector(state => state.cityDetail)
+const dispatch = useDispatch();
+
+const city = () => {
+    dispatch(getCities("buenos aires"))
+}
+const city2 = () => {
+    dispatch(addCityDetail("London"))
+}
+console.log(citiesHome, cityDetail)
     return(
-       
         
            <div>
             <NavBar />
@@ -29,6 +41,10 @@ const Home = () =>{
                     </div>
                     <div class="mb-5" >
                     <ContainerCards />
+                    </div>
+                    <button type="button" class="btn btn-outline-primary" onClick={()=> city()}>Primary</button>
+                    <button type="button" class="btn btn-outline-secondary" onClick={()=> city2()}>secondary</button>
+                    <div >
                     </div>
                 </div>
             </div>
