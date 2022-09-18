@@ -1,6 +1,6 @@
 const { GET_CITY, GET_CITIES, CITY_DETAIL, ADD_FAVORITES,
     DELETE_FAVORITES, REMOVE_FAVORITES, GET_FAVORITES, SIGN_UP,
-     SIGN_IN, DELETE_ACCOUNT } = require('../actions/actionTypes')
+     SIGN_IN, DELETE_ACCOUNT, REMOVE_CITY } = require('../actions/actionTypes')
 
 const initialState = {
  cityDetail:{},
@@ -16,7 +16,7 @@ switch (action.type){
 case GET_CITY:
     return{
         ...state,
-        cities : state.cities.concat(action.payload)
+        cities : state.cities.find(el => el.name === action.payload.name)? state.cities : state.cities.concat(action.payload)
     }
 case GET_CITIES:
     return{
@@ -62,6 +62,11 @@ case DELETE_ACCOUNT:
     return {
         ...state,
         user: action.payload
+    }
+case REMOVE_CITY:
+    return {
+        ...state,
+        cities : state.cities.filter(el => el.name !== action.payload)
     }
 default:
     return {

@@ -8,7 +8,7 @@ const SIGN_UP =  'SIGN_UP';
 const SIGN_IN =  'SIGN_IN';
 const DELETE_ACCOUNT =  'DELETE_ACCOUNT';
 const CITY_DETAIL = "CITY_DETAIL";
-
+const REMOVE_CITY = "REMOVE_CITY";
 //////
 
 const URL_API = "http://localhost:3001";
@@ -24,5 +24,6 @@ module.exports = {
     SIGN_IN,
     DELETE_ACCOUNT,
     URL_API,
-    CITY_DETAIL
+    CITY_DETAIL,
+    REMOVE_CITY
 } 

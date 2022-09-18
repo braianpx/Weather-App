@@ -16,53 +16,53 @@ const Carousell = (props) => {
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
   </div>
   <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="100000">
+    <div class="carousel-item active" data-bs-interval="50000">
       <img src={Argentina} class="d-block w-100 rounded-2" alt="Buenos-Aires" />
       <div class="carousel-caption d-none d-md-block">
-        <h2>{props.citys.name}</h2>
+        <h2>{props.citys[0]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys.main.temp_min}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys.main.temp_max}°`}</h5>
+        <h5 class="me-2">{`Min ${props.citys[0]?.main.temp_min || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${props.citys[0]?.main.temp_max || "0"}°`}</h5>
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-bs-interval="10000">
+    <div class="carousel-item" data-bs-interval="50000">
       <img src={Brazil} class="d-block w-100 rounded-2" alt="..." />
       <div class="carousel-caption d-none d-md-block">
-      <h2>{props.citys.name}</h2>
+      <h2>{props.citys[1]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys.main.temp_min}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys.main.temp_max}°`}</h5>
+        <h5 class="me-2">{`Min ${props.citys[1]?.main.temp_min || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${props.citys[1]?.main.temp_max || "0"}°`}</h5>
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-bs-interval="10000">
+    <div class="carousel-item" data-bs-interval="50000">
       <img src={Inglaterra} class="d-block w-100 rounded-2" alt="..." />
       <div class="carousel-caption d-none d-md-block">
-      <h2>{props.citys.name}</h2>
+      <h2>{props.citys[2]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys.main.temp_min}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys.main.temp_max}°`}</h5>
+        <h5 class="me-2">{`Min ${props.citys[2]?.main.temp_min || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${props.citys[2]?.main.temp_max || "0"}°`}</h5>
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-bs-interval="10000">
+    <div class="carousel-item" data-bs-interval="50000">
       <img src={Colombia} class="d-block w-100 rounded-2" alt="..." />
       <div class="carousel-caption d-none d-md-block">
-      <h2>{props.citys.name}</h2>
+      <h2>{props.citys[3]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys.main.temp_min}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys.main.temp_max}°`}</h5>
+        <h5 class="me-2">{`Min ${props.citys[3]?.main.temp_min || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${props.citys[3]?.main.temp_max || "0"}°`}</h5>
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-bs-interval="10000">
+    <div class="carousel-item" data-bs-interval="50000">
       <img src={EstadosUnidos} class="d-block w-100 rounded-2" alt="..." />
       <div class="carousel-caption d-none d-md-block">
-      <h2>{props.citys.name}</h2>
+      <h2>{props.citys[4]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys.main.temp_min}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys.main.temp_max}°`}</h5>
+        <h5 class="me-2">{`Min ${props.citys[4]?.main.temp_min || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${props.citys[4]?.main.temp_max || "0"}°`}</h5>
         </div>
       </div>
     </div>

@@ -3,32 +3,43 @@ import NavBar from '../NavBar/NavBar.jsx';
 import SearchBar from '../SearchBar/SearchBar.jsx';
 import CarouselFav from '../CarouselFav/CarouselFav.jsx';
 import ContainerCards from '../ConteinerCards/ConteinerCards.jsx';
-import { Londres } from '../../data.js';
-import './Home.css';
+import LogIn from '../LogIn/LogIn.jsx';
 import { addCityDetail, getCities } from '../../redux/actions/index';
 import { useDispatch, useSelector } from 'react-redux'  
+import { useEffect, useState } from 'react';
+import './Home.css';
 
 const Home = () =>{
 
+const [ switchLogIn, setSwitchLogIn] = useState(false);   
 const citiesHome = useSelector(state => state.citiesHome)
-const cityDetail = useSelector(state => state.cityDetail)
+const cities = useSelector(state => state.cities)
 const dispatch = useDispatch();
 
-const city = () => {
-    dispatch(getCities("buenos aires"))
-}
+
+useEffect(()=>{
+    dispatch(getCities())
+},[])
+
 const city2 = () => {
     dispatch(addCityDetail("London"))
 }
-console.log(citiesHome, cityDetail)
+console.log(citiesHome)
     return(
         
            <div>
-            <NavBar />
+            <NavBar setSwitchLogIn={setSwitchLogIn}/>
+                {
+                    switchLogIn? 
+                    <div>
+                    <button onClick={()=> setSwitchLogIn(false)}>x</button>
+                    <LogIn />
+                    </div> : null
+                }
             <div class="container-fluid ">
                 <div className='d-flex justify-content-center row row-cols-1'>
                     <div class="col mt-4 d-flex justify-content-center w-100 h-50">
-                        <Carousell citys={Londres}/>
+                        <Carousell citys={citiesHome}/>
                     </div>
                     <p class="text-muted fs-5 fw-semibold mb-0 mt-3">Favorites</p>
                     <div class="w-100 mt-0 mb-3 d-flex justify-content-center align-items-center">
@@ -40,11 +51,7 @@ console.log(citiesHome, cityDetail)
                         <SearchBar />
                     </div>
                     <div class="mb-5" >
-                    <ContainerCards />
-                    </div>
-                    <button type="button" class="btn btn-outline-primary" onClick={()=> city()}>Primary</button>
-                    <button type="button" class="btn btn-outline-secondary" onClick={()=> city2()}>secondary</button>
-                    <div >
+                    <ContainerCards cities={cities}/>
                     </div>
                 </div>
             </div>

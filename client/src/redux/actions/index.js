@@ -1,13 +1,12 @@
 const { GET_CITY, GET_CITIES, ADD_FAVORITES, DELETE_FAVORITES,
 REMOVE_FAVORITES, GET_FAVORITES, SIGN_UP, SIGN_IN, DELETE_ACCOUNT,
- URL_API, CITY_DETAIL} = require('./actionTypes.js')
+ URL_API, CITY_DETAIL, REMOVE_CITY} = require('./actionTypes.js')
  const axios = require('axios')
 console.log(URL_API)
 
 //// City 
 export const getCity = (city) =>{
     return function (dispatch){
-        console.log(URL_API)
         axios({
             method:'get',
             url:`${URL_API}/city?name=${city}`,
@@ -24,16 +23,22 @@ export const getCity = (city) =>{
         .catch(err => err) 
     }
  };
- export const getCities = (cities) =>{
+ export const getCities = () =>{
     return function (dispatch){
-        axios.get(`${URL_API}/city?names=${cities}`)
+        axios({
+            method:'get',
+            url:`${URL_API}/city`,
+            headers: {
+                "Content-Type": "application/json",
+              },
+        })
         .then(city => {
             dispatch({  
                 type:GET_CITIES,
                 payload: city.data
                 });    
         })
-        .catch(data => data)
+        .catch(data => console.log(data))
     }
 }
 export const addCityDetail = (city) =>{ 
@@ -44,6 +49,16 @@ export const addCityDetail = (city) =>{
     })
  }   
 };
+export const removeCity = (city) =>{
+    return function (dispatch){
+        return dispatch({
+            type: REMOVE_CITY,
+            payload: city
+        })
+    }
+}
+
+
 /// Fav
 export const addFavorites = (city) =>{
     return function (dispatch){

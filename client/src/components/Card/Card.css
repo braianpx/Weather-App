@@ -3,4 +3,22 @@
     height: 12rem;
     background-image: url(../../assets/img/fondo.gif);
     box-shadow: 0px 0px 0.3rem 0.1rem rgb(140, 139, 139);
+    transition: transform 0.5s;
+}
+#idCard:hover{
+transform: scale(1.02);
+}
+#idRemoveCard{
+    cursor: pointer;
+    transition: all 0.4s;
+}
+#idRemoveCard:hover{
+    color: red !important;
+}
+#idAddFavorite{
+    cursor: pointer;
+transition: all 0.4s;   
+}
+#idAddFavorite:hover{
+    color: red !important;   
 }

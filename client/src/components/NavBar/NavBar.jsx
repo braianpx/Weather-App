@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 
-const NavBar = () =>{
+const NavBar = (props) =>{
 
 const selectSearch = () => {
   const element = document.querySelector("#formSearch")
   const input = document.querySelector('#idInputSearch')
   element.scrollIntoView()
   input.select()
+}; 
 
-};
     return(
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100" >
   <div className="container-fluid">
@@ -26,8 +26,8 @@ const selectSearch = () => {
             User
           </a>
           <ul className="dropdown-menu">
-            <li><a className="dropdown-item" >LogOut</a></li>
-            <li><a className="dropdown-item" >Delete Account</a></li>
+            <li><a className="dropdown-item" onClick={()=>props.setSwitchLogIn(true)}>LogIn</a></li>
+            <li><a className="dropdown-item" >SignIn</a></li>
           </ul>
         </li>
         <li className="nav-item">
