@@ -25,7 +25,7 @@ try{
         res.status(401).send('missing data required')
     }
 }catch(err){
-    res.status(401).json({data:err})
+    res.status(401).json({data:err+''})
 }
 };
 

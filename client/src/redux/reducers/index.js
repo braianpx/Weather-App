@@ -1,12 +1,12 @@
 const { GET_CITY, GET_CITIES, CITY_DETAIL, ADD_FAVORITES,
-    DELETE_FAVORITES, REMOVE_FAVORITES, GET_FAVORITES, SIGN_UP,
-     SIGN_IN, DELETE_ACCOUNT, REMOVE_CITY } = require('../actions/actionTypes')
+    DELETE_FAVORITES, REMOVE_FAVORITES, GET_FAVORITES,
+     SIGN_IN, DELETE_ACCOUNT, REMOVE_CITY,LOG_OUT } = require('../actions/actionTypes')
 
 const initialState = {
  cityDetail:{},
  citiesHome:[],
  cities:[],
- user:{},
+ user:{username: JSON.parse(localStorage.getItem('tokenUser'))?.username || false },
  favorites:[]
 
 }
@@ -48,11 +48,6 @@ case GET_FAVORITES:
         ...state,
         favorites: action.payload
     }
-case SIGN_UP:
-    return {
-        ...state,
-        user: action.payload
-    }
 case SIGN_IN:
     return {
         ...state,
@@ -67,6 +62,11 @@ case REMOVE_CITY:
     return {
         ...state,
         cities : state.cities.filter(el => el.name !== action.payload)
+    }
+case LOG_OUT:
+    return{
+        ...state,
+        user:{username: action.payload}
     }
 default:
     return {

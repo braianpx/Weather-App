@@ -1,6 +1,6 @@
 const { GET_CITY, GET_CITIES, ADD_FAVORITES, DELETE_FAVORITES,
-REMOVE_FAVORITES, GET_FAVORITES, SIGN_UP, SIGN_IN, DELETE_ACCOUNT,
- URL_API, CITY_DETAIL, REMOVE_CITY} = require('./actionTypes.js')
+REMOVE_FAVORITES, GET_FAVORITES, SIGN_IN, DELETE_ACCOUNT,
+ URL_API, CITY_DETAIL, REMOVE_CITY, LOG_OUT} = require('./actionTypes.js')
  const axios = require('axios')
 console.log(URL_API)
 
@@ -82,7 +82,14 @@ export const addFavorites = (city) =>{
 }
 export const deleteFavorites = () =>{
     return function (dispatch){
-        axios.delete(`${URL_API}/favorites/delete`)
+        axios({
+            method:'delete',
+            url:`${URL_API}/favorites/delete`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("tokenUser")}`
+              },
+            })
         .then(data => {
             dispatch({
                 type:DELETE_FAVORITES,
@@ -130,41 +137,36 @@ export const getFavorites = () =>{
 }
 /// account
 export const signUp = (signUpForm) =>{
-    return function (dispatch){
-        axios({
+    return axios({
             method:'post',
             url:`${URL_API}/user/signUp`,
             headers: {
                 "Content-Type": "application/json",
               },
             data:JSON.stringify(signUpForm)
-        }).then(data=>{
-            dispatch({
-                type:SIGN_UP,
-                payload: {}
-            })
-            return data.data;
-        }).catch(err => err)
-     }
+        }).then(data =>  data.data)
+        .catch(err => err)
 }
 export const signIn = (singInForm) =>{
-    return function (dispatch){
-        axios({
+        return axios({
             method:'post',
             url:`${URL_API}/user/signIn`,
             headers: {
                 "Content-Type": "application/json",
               },
             data:JSON.stringify(singInForm)
-        }).then(data=>{
+        })
+        .then(data=> data.data)
+        .catch(err =>  err)
+}
+export const signInDispatch = (data) =>{
+    return function (dispatch){
             dispatch({
                 type: SIGN_IN,
-                payload: data.data.username
+                payload: data
             })
-            return data.data;
-        }).catch(err => err)
-     }
-}
+        }
+    }
 export const deleteAccount = () =>{
     return function (dispatch){
         fetch({
@@ -183,3 +185,13 @@ export const deleteAccount = () =>{
         }).catch(err => err)
      }
 }
+
+export const logOut = (data) =>{
+    return function (dispatch){
+            localStorage.clear()
+            dispatch({
+                type: LOG_OUT,
+                payload: data
+            })
+        }
+    }

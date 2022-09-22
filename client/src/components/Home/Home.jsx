@@ -3,7 +3,7 @@ import NavBar from '../NavBar/NavBar.jsx';
 import SearchBar from '../SearchBar/SearchBar.jsx';
 import CarouselFav from '../CarouselFav/CarouselFav.jsx';
 import ContainerCards from '../ConteinerCards/ConteinerCards.jsx';
-import LogIn from '../LogIn/LogIn.jsx';
+import SignInAndSignUp from '../SignInAndSignUp/SignInAndSignUp.jsx';
 import { addCityDetail, getCities } from '../../redux/actions/index';
 import { useDispatch, useSelector } from 'react-redux'  
 import { useEffect, useState } from 'react';
@@ -24,18 +24,12 @@ useEffect(()=>{
 const city2 = () => {
     dispatch(addCityDetail("London"))
 }
+
 console.log(citiesHome)
     return(
         
-           <div>
-            <NavBar setSwitchLogIn={setSwitchLogIn}/>
-                {
-                    switchLogIn? 
-                    <div>
-                    <button onClick={()=> setSwitchLogIn(false)}>x</button>
-                    <LogIn />
-                    </div> : null
-                }
+           <div id="id-div-home">
+            <NavBar setSwitchLogIn={setSwitchLogIn} />
             <div class="container-fluid ">
                 <div className='d-flex justify-content-center row row-cols-1'>
                     <div class="col mt-4 d-flex justify-content-center w-100 h-50">
@@ -55,9 +49,13 @@ console.log(citiesHome)
                     </div>
                 </div>
             </div>
+                {
+                    switchLogIn? 
+                    <div className="h-100 w-100"><SignInAndSignUp setSwitchLogIn={setSwitchLogIn} /></div>
+                    : null
+                }
             </div>
     )
 }
-
 
 export default Home;
