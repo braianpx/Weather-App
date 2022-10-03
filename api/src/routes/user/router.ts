@@ -4,7 +4,7 @@ import passport from 'passport';
 
 const router = Router();
 
-router.post('/sigUp', signUp);
+router.post('/signUp', signUp);
 router.post('/signIn', signIn)
 router.delete('/delete',passport.authenticate('jwt', { session:false }) ,deleteAccount)
 

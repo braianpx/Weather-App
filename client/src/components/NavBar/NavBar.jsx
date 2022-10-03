@@ -27,12 +27,12 @@ const selectSearch = () => {
         {
           user.username?
           <li className="nav-item dropdown">
-          <span className="nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a className="nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {user.username}
-          </span>
+          </a>
           <ul className="dropdown-menu">
             <li><button to="users/sign_in" className="dropdown-item" onClick={()=> dispatch(logOut(false))}>LogOut</button></li>
-            <li><button className="dropdown-item">Delete Account</button></li>
+            <li><button className="dropdown-item" onClick={()=>props.setSwitchDelete({...props.switchDelete,boolean:true})}>Delete Account</button></li>
           </ul>
         </li>
         :

@@ -2,3 +2,7 @@
     height:15rem;
     width:92%;
 }
+#id_div_not_found_fav{
+    position: relative !important;
+    right: 10px !important;
+}

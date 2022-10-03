@@ -7,6 +7,7 @@ import './SignIn.css';
 const SignIn = (props) =>{
 
 const dispatch = useDispatch();
+const [isLogin, SetIsLogin ] = useState(false)
 const [ spinner, setSpinner] = useState(false)
 const [errors,setErrors] = useState({});
 const [user, setUser] = useState({
@@ -33,7 +34,6 @@ setErrors(validatorLogin({
 }))
 setTimeout(async()=>{
 if(!Object.keys(errors).length){
-    console.log("entro al errors keys")
     const response = await signIn(user)
     if(Object.keys(response).find(el => el === "response")){
         setErrors({
@@ -41,11 +41,10 @@ if(!Object.keys(errors).length){
             response : response.response.data.data
         })
     }else{
-        console.log("entro al token")
         window.localStorage.setItem("tokenUser",JSON.stringify(response))
         dispatch(signInDispatch(JSON.parse(window.localStorage.getItem("tokenUser")).username))
-        props.setSwitchLogIn(false)
-        
+        SetIsLogin(true)
+        setTimeout(()=>{props.setSwitchLogIn(false)},1000) 
     }
 }else{
     setErrors({...errors})
@@ -61,17 +60,25 @@ const switchSpinner = () =>{
 }
     return(
         <div class="container text-center border border-dark rounded-2 border-opacity-50 bg-white ">
+        { 
+        isLogin? 
+            <div className='mt-4 mb-5'>
+                <i class="bi bi-check-circle-fill text-success" id="id-i-check"></i>
+                <h4 class="text-success">Successful login</h4>
+            </div>
+            :
+            <div>
             <div class="col-12 text-end">
                 <i class="bi bi-x fs-4" onClick={()=>{props.setSwitchLogIn(false)}} style={{cursor:"pointer"}}></i>
             </div>
             <form class="g-3" onSubmit={handleOnSubmit}>
+                
                 <div class="row mb-3 justify-content-center">
                     <label class="col-sm-12 col-form-label fw-semibold fs-3">Log In</label>
                 </div>
                 {errors.response?
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Holy guacamole!</strong> An example danger alert with an icon apparently there is no user with that username or the password is wrong.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
+                    <strong>{errors.response}</strong>  the username does not exist or the password is incorrect
                     </div>
                    :
                     null    
@@ -120,12 +127,14 @@ const switchSpinner = () =>{
                    </button>
                     </div>
                 </div>
+                
             </form>
             <div class="container text-center mb-5 mt-4"> 
                 <div class="col-12">
                     <p class="text text-secondary" >Not registered? <span onClick={()=>props.setSwitchSign(false)} class="text-primary" style={{cursor:"pointer"}}> Create an Account </span></p> 
                 </div>
             </div>
+            </div>}
         </div>
     )
 }

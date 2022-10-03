@@ -42,7 +42,6 @@ try{
     }else{
         const user = await UserModel.findOne({username:username})
         const passwordCorrect = user === null ? false : await user.comparePassword(password);
-
     if (!(user && passwordCorrect)) {
         res.status(401).json({data: "invalid user or password"});
         return;
@@ -70,7 +69,7 @@ export const deleteAccount = async (req:Request,res:Response) => {
 const user = req.user;
 try{
     const deleteUser = await UserModel.deleteOne(user)
-   if(deleteUser.acknowledged) res.status(200).send('User deleted successfully')
+   if(deleteUser.acknowledged) res.status(200).json({data:'User deleted successfully'})
    else res.status(404).json({data:'unexpected error'})
 }catch(err){
     res.status(404).json({data:err+''})

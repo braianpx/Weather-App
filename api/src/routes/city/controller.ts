@@ -29,14 +29,6 @@ if(name){
     res.status(200).send(Londres)
 }else if(!name){
     console.log(2)
-    // const names:string[] = ["Buenos Aires","Rio De Janeiro","London","Bogota","Washington DC"]
-    // const cities = names.map(async(el)=>{
-    //     return await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${el}&appid=${API_KEY}`).data;
-    // });
-    //respondo con la ciudad
-    res.status(200).json(cities)
-}else{
-    console.log(3)
     res.status(404).json({data:"Not Found"})
 }
 }catch(e){
@@ -44,9 +36,22 @@ res.status(404).json({data:e +''})
 }
 };
 
-
+const getCities = async (req:Request, res:Response) => {
+console.log('this console.log is for req',req.body)
+try{
+    // const names:string[] = ["Buenos Aires","Rio De Janeiro","London","Bogota","Washington DC"]
+    // const cities = names.map(async(el)=>{
+    //     return await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${el}&appid=${API_KEY}`).data;
+    // });
+    //respondo con la ciudad
+    res.status(200).json(cities)
+}catch(err){
+res.status(404).json({data:err+''})
+}
+}
 
 
 module.exports = {
     getCity,
+    getCities
 }

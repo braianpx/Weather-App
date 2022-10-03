@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { getCity } from "../../redux/actions/index";
-import { useDispatch } from "react-redux";
 
-const SearchBar = () =>{
+const SearchBar = (props) =>{
 
 const [name, setName] = useState('');
-const dispatch = useDispatch();
 
 const handleInputChange = (e) => {
     setName(e.target.value)
 };
 const handleOnSubmit = (e) =>{
 e.preventDefault();
-dispatch(getCity(name))
+if(name){
+props.dispatch(getCity(name))
 setName('');
+}
 };
 
     return(

@@ -27,7 +27,7 @@ export const getCity = (city) =>{
     return function (dispatch){
         axios({
             method:'get',
-            url:`${URL_API}/city`,
+            url:`${URL_API}/city/all`,
             headers: {
                 "Content-Type": "application/json",
               },
@@ -51,6 +51,7 @@ export const addCityDetail = (city) =>{
 };
 export const removeCity = (city) =>{
     return function (dispatch){
+        console.log(city)
         return dispatch({
             type: REMOVE_CITY,
             payload: city
@@ -168,24 +169,28 @@ export const signInDispatch = (data) =>{
         }
     }
 export const deleteAccount = () =>{
-    return function (dispatch){
-        fetch({
-            method:'post',
-            url:`${URL_API}/user/delete`,
+       return fetch(`${URL_API}/user/delete`,{
+            method:'DELETE',
             headers: {
                 "Content-Type": "application/json",
-                 Authorization: `Bearer ${localStorage.getItem("tokenUser")}`
+                 "Authorization": `Bearer ${JSON.parse(localStorage.getItem("tokenUser")).token}`
                 },
-        }).then(data=>{
-            dispatch({
-                type: DELETE_ACCOUNT,
-                payload: {}
-            })
-            return data.data;
-        }).catch(err => err)
+        })
+        .then(async(data) => {
+            if(data.status === 404) return {response: await data.json()}
+            else return data.json();
+        })
+        .then(response => response)
+        .catch(err =>  err)
      }
+export const dispDeleteAccount = () => {
+    return function(dispatch){
+         dispatch({
+        type: DELETE_ACCOUNT,
+        payload: {}
+    })
+    }
 }
-
 export const logOut = (data) =>{
     return function (dispatch){
             localStorage.clear()

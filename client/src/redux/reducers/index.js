@@ -14,9 +14,15 @@ const initialState = {
 const rootReducer = (state = initialState, action) =>{
 switch (action.type){
 case GET_CITY:
+    let cities = null;
+    if(state.cities.find(el => el.name === action.payload.name)){ 
+    cities = state.cities 
+    alert(`you already have the city ${action.payload.name} added`)
+    }
+    else cities = state.cities.concat(action.payload)
     return{
         ...state,
-        cities : state.cities.find(el => el.name === action.payload.name)? state.cities : state.cities.concat(action.payload)
+        cities : cities
     }
 case GET_CITIES:
     return{

@@ -4,6 +4,10 @@ import { signUp } from '../../redux/actions';
 
 const SingUp = (props) =>{
 
+const [signUpSuccess, setSignUpSuccess] = useState({
+    boolean:false,
+    message:null
+})
 const [spinner, setSpinner] = useState(false)
 const [errors,setErrors] = useState({});
 const [user, setUser] = useState({
@@ -41,10 +45,18 @@ if(!Object.keys(errors).length){
     if(Object.keys(response).find(el => el === "response")){
         setErrors({
             ...errors,
-            response : response.response.data.data
+            response : response.response.data
         })
     }else{
-        props.setSwitchLogIn(false)
+        setSignUpSuccess({
+        boolean:true,
+        message:response
+        })
+        setUser({
+            username:"",
+            password:"",
+            repeatPassword:""
+        })
     }
 }
 setSpinner(false)
@@ -59,6 +71,26 @@ setSpinner(false)
                 <div class="row mb-3 justify-content-center">
                     <label class="col-sm-12 col-form-label fw-semibold fs-3">Sign Up</label>
                 </div>
+                {
+                    errors.response?
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{errors.response}</strong>
+                    </div>
+                   :
+                    null   
+                }
+                {
+                signUpSuccess.boolean?
+                <div class="alert alert-success d-flex" role="alert">
+                    <div className='col-11'>{`${signUpSuccess.message} `}
+                        <span class="alert-link" onClick={()=>props.setSwitchSign(true)} style={{cursor:"pointer"}}>go to login</span>
+                    </div>
+                    <div className='col-1' onClick={()=>setSignUpSuccess({boolean:false,message:null})} style={{cursor:"pointer"}}>
+                        x
+                    </div>
+                </div>
+                :null
+                }
                 <div class="row my-3 justify-content-center">   
                     <div class="col-sm-8">
                     <input type="username" class={`form-control ${errors.username || errors.response?"is-invalid":user.username[0]?'is-valid':null}`} 
@@ -89,13 +121,6 @@ setSpinner(false)
                     </div>
                     </div>
                 </div>
-                {errors.response?
-                    <div class="col-12 mb-2">
-                    <span class="text-danger fs-6">{errors.response}</span>
-                    </div>
-                    :
-                    null    
-                }
                 <div class="row mb-3 justify-content-center">
                     <div class="col-sm-8">
                     <input type="password" class={`form-control ${errors.repeatPassword || errors.response?"is-invalid":user.repeatPassword[0]?'is-valid':null}`}
