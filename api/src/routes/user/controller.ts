@@ -53,7 +53,7 @@ try{
         };
 
         const token = jwt.sign(userForToken, String(process.env.SECRETJWT), {
-          expiresIn: 60 * 60 * 24 * 7,
+          expiresIn: 60 * 60 * 24 * 7 
         });
 
         res.json({token:token, username:username});
@@ -69,7 +69,10 @@ export const deleteAccount = async (req:Request,res:Response) => {
 const user = req.user;
 try{
     const deleteUser = await UserModel.deleteOne(user)
-   if(deleteUser.acknowledged) res.status(200).json({data:'User deleted successfully'})
+   if(deleteUser.acknowledged){
+    await FavoritesModels.deleteOne({user:user})
+    res.status(200).json({data:'User deleted successfully'})
+}
    else res.status(404).json({data:'unexpected error'})
 }catch(err){
     res.status(404).json({data:err+''})

@@ -4,11 +4,62 @@
     background-image: url(../../assets/img/fondo.gif);
     box-shadow: 0px 0px 0.3rem 0.1rem rgb(140, 139, 139);
     transition: transform 0.5s;
+    opacity: 0% ;
+    animation-name: fading;
+    animation-duration:1.5s;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction:normal;
+    animation-fill-mode:forwards;
+    animation-timing-function:linear 
+}   
+#idCardFading{
+    width: 20rem;
+    height: 12rem;
+    background-image: url(../../assets/img/fondo.gif);
+    box-shadow: 0px 0px 0.3rem 0.1rem rgb(140, 139, 139);
+    transition: transform 0.5s;
+    animation-name: fadingRemove;
+    animation-duration:0.5s;
+    animation-iteration-count: 1;
+    animation-direction:normal;
+    animation-fill-mode:forwards;
+    animation-timing-function:linear;
+} 
+
+@keyframes fadingRemove {
+    0%{
+        opacity: 100% ;
+    }
+    50%{
+        opacity: 50%;
+    }
+    100%{
+        opacity: 0%;
+    }
+}
+@keyframes fading{
+0%{
+    opacity: 0% ;
+}
+25%{
+    opacity: 25% ;
+}
+50%{
+    opacity: 50% ;
+}
+75%{
+    opacity: 75% ;
+}
+100%{
+    opacity: 100% ;
+}
 }
 #idCard:hover{
 transform: scale(1.02);
 }
 #idRemoveCard{
+    z-index: 2 !important;
     cursor: pointer;
     transition: all 0.4s;
 }
@@ -16,9 +67,26 @@ transform: scale(1.02);
     color: red !important;
 }
 #idAddFavorite{
-    cursor: pointer;
+z-index: 2 !important;
+cursor: pointer;
 transition: all 0.4s;   
 }
 #idAddFavorite:hover{
     color: red !important;   
+}
+#idRemoveFavorite{
+    z-index: 2 !important;
+    color:red !important;
+    cursor: pointer;
+    transition: all 0.4s;   
+}
+#idRemoveFavorite:hover{
+    color: gray !important;   
+}
+#id-img-card{
+background:  rgba(0, 0, 0, 0.3) !important;
+}
+#id-div-detail-card{
+    cursor: pointer;   
+    z-index: 1 !important;
 }

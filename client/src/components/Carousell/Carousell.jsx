@@ -7,7 +7,7 @@ import './Carousell.css'
 
 const Carousell = (props) => {
     return ( 
-<div id="carouselExampleDark" class="carousel carousel slide fw-semibold  w-75 h-50 mb-2" data-bs-ride="carousel" >
+<div id="carouselExampleDark" class="carousel carousel slide fw-semibold  w-75 h-50 mb-4" data-bs-ride="carousel" >
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -21,8 +21,8 @@ const Carousell = (props) => {
       <div class="carousel-caption d-none d-md-block">
         <h2>{props.citys[0]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys[0]?.main.temp_min || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys[0]?.main.temp_max || "0"}°`}</h5>
+        <h5 class="me-2">{`Min ${Math.round(props.citys[0]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${Math.round(props.citys[0]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>
@@ -31,8 +31,8 @@ const Carousell = (props) => {
       <div class="carousel-caption d-none d-md-block">
       <h2>{props.citys[1]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys[1]?.main.temp_min || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys[1]?.main.temp_max || "0"}°`}</h5>
+        <h5 class="me-2">{`Min ${Math.round(props.citys[1]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${Math.round(props.citys[1]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>
@@ -41,8 +41,8 @@ const Carousell = (props) => {
       <div class="carousel-caption d-none d-md-block">
       <h2>{props.citys[2]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys[2]?.main.temp_min || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys[2]?.main.temp_max || "0"}°`}</h5>
+        <h5 class="me-2">{`Min ${Math.round(props.citys[2]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${Math.round(props.citys[2]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>
@@ -51,8 +51,8 @@ const Carousell = (props) => {
       <div class="carousel-caption d-none d-md-block">
       <h2>{props.citys[3]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys[3]?.main.temp_min || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys[3]?.main.temp_max || "0"}°`}</h5>
+        <h5 class="me-2">{`Min ${Math.round(props.citys[3]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${Math.round(props.citys[3]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>
@@ -61,8 +61,8 @@ const Carousell = (props) => {
       <div class="carousel-caption d-none d-md-block">
       <h2>{props.citys[4]?.name || "World"}</h2>
         <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${props.citys[4]?.main.temp_min || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${props.citys[4]?.main.temp_max || "0"}°`}</h5>
+        <h5 class="me-2">{`Min ${Math.round(props.citys[4]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 class="ms-2">{`Max ${Math.round(props.citys[4]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>

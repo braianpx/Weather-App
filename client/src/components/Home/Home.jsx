@@ -4,17 +4,21 @@ import SearchBar from '../SearchBar/SearchBar.jsx';
 import CarouselFav from '../CarouselFav/CarouselFav.jsx';
 import ContainerCards from '../ConteinerCards/ConteinerCards.jsx';
 import SignInAndSignUp from '../SignInAndSignUp/SignInAndSignUp.jsx';
+import DetailCity from '../DetailCity/DetailCity.jsx';
 import DeleteUser from '../DeleteUser/DeleteUser.jsx'
-import { addCityDetail, getCities, deleteAccount , dispDeleteAccount, getFavorites } from '../../redux/actions/index';
+import { addCityDetail, getCities, deleteAccount , dispDeleteAccount, getFavorites, deleteFavorites } from '../../redux/actions/index';
 import { useDispatch, useSelector } from 'react-redux'  
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Home.css';
 
 const Home = () =>{
 
 const dispatch = useDispatch();
-const [ switchDelete, setSwitchDelete ] = useState({
-    boolean:false,
+const location = useLocation()
+const [switchDetailCity , setSwitchDetailCity ] = useState(false)
+const [switchDelete, setSwitchDelete ] = useState({
+    boolean:location?.state?.deleteUser || false,
     message:'',
     messageError:'',
     yes:async()=>{
@@ -32,6 +36,7 @@ const [ switchDelete, setSwitchDelete ] = useState({
                 boolean:true,
                 message: response.data || 'User deleted successfuly'
         })
+        dispatch(deleteFavorites())
         dispatch(dispDeleteAccount())
         window.localStorage.clear()                     
         }
@@ -45,50 +50,76 @@ const [ switchDelete, setSwitchDelete ] = useState({
 });
 const [ switchLogIn, setSwitchLogIn] = useState(false);
 const [pagination, setPagination] = useState(1);
-const [cantCards, setCantCards] = useState(3);
+const cantCards = 3;
 const citiesHome = useSelector(state => state.citiesHome)
 const cities = useSelector(state => state.cities)
 const user = useSelector(state => state.user)
 const favorites = useSelector(state => state.favorites)
+
 useEffect(()=>{
     dispatch(getCities())
+},[]);
+useEffect(()=>{
     if(user.username) dispatch(getFavorites())
-},[])
-const cardsSlice = favorites.slice(cantCards * pagination - cantCards,cantCards * pagination);
+},[user.username]);
+useMemo(()=>{
+    if(switchLogIn || switchDetailCity){
+        document.querySelector("Body").style.overflow = "hidden"
+    }else{
+        document.querySelector("Body").style.overflow = "auto"
+    }
+},[switchLogIn,switchDetailCity])
+const cardsSlice = favorites?.slice(cantCards * pagination - cantCards,cantCards * pagination);
 ////pagination functions///
 const nextPage = () =>{
-    setPagination(pagination +1);
-    }
+if(pagination === 1 && pagination < 2) setPagination(pagination +1)
+}
 const previousPage = () =>{
-    setPagination(pagination -1)
-    }
-console.log(citiesHome)
+if(pagination === 2 && pagination > 1) setPagination(pagination -1)
+}
+const getCityDetail = (city) => {
+    setSwitchDetailCity(true)
+    dispatch(addCityDetail(city))
+}
+
+console.log(switchDetailCity, cities)
     return(
         
-           <div id="id-div-home">
-            <NavBar setSwitchLogIn={setSwitchLogIn} setSwitchDelete={setSwitchDelete} switchDelete={switchDelete}/>
+           <div id="id-div-home">    
+            <NavBar setSwitchLogIn={setSwitchLogIn} setSwitchDelete={setSwitchDelete} switchDelete={switchDelete} search={location?.state?.search || false}/>    
+            <div id="id-div-content-fading">
             <div class="container-fluid ">
                 <div className='d-flex justify-content-center row row-cols-1'>
-                    <div class="col mt-4 d-flex justify-content-center w-100 h-50">
+                    <div id="id-div-container-carrousel" class="col pt-4 d-flex justify-content-center w-100 h-50 border-bottom border-bottom-5 border-dark">
                         <Carousell citys={citiesHome}/>
                     </div>
                     <p class="text-muted fs-5 fw-semibold mb-0 mt-3">Favorites</p>
                     <div class="w-100 mt-0 mb-3 d-flex justify-content-center align-items-center">
-                        <i  id="idHomeFav" class="bi bi-arrow-left-circle-fill " onClick={()=>user.username?previousPage():null} ></i>
-                            <CarouselFav favorites={cardsSlice} user={user} setSwitchLogIn={setSwitchLogIn} />
-                        <i id="idHomeFav" class="bi bi-arrow-right-circle-fill " onClick={()=>user.username?nextPage():null} ></i>
+                        {favorites.length > 3 && pagination !== 1?
+                            <i  id="idHomeFav" class="bi bi-arrow-left-circle-fill " onClick={()=>user.username?previousPage():null} ></i>
+                            :
+                            null
+                        }
+                            <CarouselFav favorites={cardsSlice} user={user} setSwitchLogIn={setSwitchLogIn} getCityDetail={getCityDetail} setSwitchDetailCity={setSwitchDetailCity} setPagination={setPagination}/>
+                        {favorites.length > 3 && pagination !== 2?
+                            <i id="idHomeFav" class="bi bi-arrow-right-circle-fill " onClick={()=>user.username?nextPage():null} ></i>
+                        :
+                        null
+                        }
                     </div>
                     <div class="col w-50 my-3" >
                         <SearchBar dispatch={dispatch}/>
                     </div>
-                    <div class="mb-5" >
-                    <ContainerCards cities={cities}/>
-                    </div>
+                        <div class="mb-5" >
+                            <ContainerCards cities={cities} switchx={true} getCityDetail={getCityDetail} setSwitchDetailCity={setSwitchDetailCity} />
+                        </div>
                 </div>
             </div>
                 {
                     switchLogIn? 
-                    <div className="h-100 w-100"><SignInAndSignUp setSwitchLogIn={setSwitchLogIn} /></div>
+                    <div id="id-window-Login" className="h-100 w-100">
+                        <SignInAndSignUp setSwitchLogIn={setSwitchLogIn} switchLogIn={switchLogIn} />
+                        </div>
                     : null
                 }
                 {
@@ -99,7 +130,15 @@ console.log(citiesHome)
                     :
                     null
                 }
-            </div>
+                {   switchDetailCity?
+                    <div className='w-100 h-100'>
+                        <DetailCity setSwitchDetailCity={setSwitchDetailCity}/>
+                    </div>
+                    :
+                    null
+                }
+                </div>
+             </div>
     )
 }
 

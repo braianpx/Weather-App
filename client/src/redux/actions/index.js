@@ -1,8 +1,7 @@
 const { GET_CITY, GET_CITIES, ADD_FAVORITES, DELETE_FAVORITES,
 REMOVE_FAVORITES, GET_FAVORITES, SIGN_IN, DELETE_ACCOUNT,
- URL_API, CITY_DETAIL, REMOVE_CITY, LOG_OUT} = require('./actionTypes.js')
- const axios = require('axios')
-console.log(URL_API)
+URL_API, CITY_DETAIL, REMOVE_CITY, LOG_OUT} = require('./actionTypes.js')
+const axios = require('axios');
 
 //// City 
 export const getCity = (city) =>{
@@ -18,11 +17,17 @@ export const getCity = (city) =>{
             dispatch({  
                 type:GET_CITY,
                 payload: data.data
-                });    
+                });   
         })
-        .catch(err => err) 
+        .catch(err => {
+            if(err.response.status === 404 && err.response.statusText === "Not Found"){
+                alert('city ​​not found')
+            }
+        return err;
+        }) 
     }
  };
+ 
  export const getCities = () =>{
     return function (dispatch){
         axios({
@@ -60,82 +65,6 @@ export const removeCity = (city) =>{
 }
 
 
-/// Fav
-export const addFavorites = (city) =>{
-    return function (dispatch){
-        axios({
-            method:'put',
-            url:`${URL_API}/favorites/add`,
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
-              },
-            data:{city:JSON.stringify(city.name)}
-        })
-        .then(data => {
-            dispatch({
-                type:ADD_FAVORITES,
-                payload: city
-            })
-            return data;
-        }).catch(err => err)
-     }
-}
-export const deleteFavorites = () =>{
-    return function (dispatch){
-        axios({
-            method:'delete',
-            url:`${URL_API}/favorites/delete`,
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("tokenUser")}`
-              },
-            })
-        .then(data => {
-            dispatch({
-                type:DELETE_FAVORITES,
-                payload: []
-            })
-            return data;
-        })
-     }
-}
-export const removeFavorites = (cityName) =>{
-    return function (dispatch){
-        axios({
-            method:'put',
-            url:`${URL_API}/favorites/remove`,
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("tokenUser")}`
-              },
-            data:{city:JSON.stringify(cityName)}
-        }).then(data=>{
-            dispatch({
-                type:REMOVE_FAVORITES,
-                payload: cityName
-            })
-            return data;
-        }).catch(err => err)
-     }
-}
-export const getFavorites = () =>{
-    return function (dispatch){
-        axios({
-            method:'get',
-            url:`${URL_API}/favorites`,
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("tokenUser")}`
-              }
-        }).then(data=>{
-            dispatch({
-                type:GET_FAVORITES,
-                payload: data.data
-            })
-        }).catch(err => err)
-     }
-}
 /// account
 export const signUp = (signUpForm) =>{
     return axios({
@@ -193,10 +122,144 @@ export const dispDeleteAccount = () => {
 }
 export const logOut = (data) =>{
     return function (dispatch){
-            localStorage.clear()
+        window.localStorage.clear()
             dispatch({
                 type: LOG_OUT,
                 payload: data
             })
-        }
-    }
+            dispatch({
+                type:DELETE_FAVORITES,
+                payload: []
+            })
+        };
+    };;
+/// Fav
+export const addFavorites = (cityName) =>{
+    return function (dispatch){
+        axios({
+            method:'put',
+            url:`${URL_API}/favorites/add`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("tokenUser")).token}`
+              },
+            data:JSON.stringify({city:cityName})
+        })
+        .then(data => {
+            dispatch({
+                type:ADD_FAVORITES,
+                payload: cityName
+            })
+            return data;
+        }).catch(err => {
+            if(err.response.data === "Unauthorized" && err.response.status === 401){
+                window.localStorage.clear()
+                dispatch({
+                    type: LOG_OUT,
+                    payload: false
+                })
+                dispatch({
+                    type:DELETE_FAVORITES,
+                    payload: []
+                })
+                alert("Session time out, log in again")
+            }
+            return err})
+     }
+}
+export const deleteFavorites = () =>{
+    return function (dispatch){
+        axios({
+            method:'delete',
+            url:`${URL_API}/favorites/delete`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("tokenUser")).token}`
+              },
+            })
+        .then(data => {
+            dispatch({
+                type:DELETE_FAVORITES,
+                payload: []
+            })
+            console.log(data);
+        })
+        .catch(err => {
+            if(err.response.data === "Unauthorized" && err.response.status === 401){
+                window.localStorage.clear()
+                dispatch({
+                    type: LOG_OUT,
+                    payload: false
+                })
+                dispatch({
+                    type:DELETE_FAVORITES,
+                    payload: []
+                })
+                alert("Session time out, log in again")
+            }
+            return err})
+     }
+}
+export const removeFavorites = (cityName) =>{
+    return function (dispatch){
+        axios({
+            method:'put',
+            url:`${URL_API}/favorites/remove`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("tokenUser")).token}`
+              },
+            data:JSON.stringify({city:cityName})
+        }).then(data=>{
+            dispatch({
+                type:REMOVE_FAVORITES,
+                payload: cityName
+            })
+            return data;
+        }).catch(err => {
+            if(err.response.data === "Unauthorized" && err.response.status === 401){
+                window.localStorage.clear()
+                dispatch({
+                    type: LOG_OUT,
+                    payload: false
+                })
+                dispatch({
+                    type:DELETE_FAVORITES,
+                    payload: []
+                })
+                alert("Session time out, log in again")
+            }
+            return err})
+     }
+}
+export const getFavorites = () =>{
+    return function (dispatch){
+        axios({
+            method:'get',
+            url:`${URL_API}/favorites`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("tokenUser"))?.token}`
+              }
+        }).then(data=>{
+            dispatch({
+                type:GET_FAVORITES,
+                payload: data.data
+            })
+        }).catch(err => {
+            console.log(err);
+            if(err.response.data === "Unauthorized" && err.response.status === 401){
+                window.localStorage.clear()
+                dispatch({
+                    type: LOG_OUT,
+                    payload: false
+                })
+                dispatch({
+                    type:DELETE_FAVORITES,
+                    payload: []
+                })
+                alert("Session time out, log in again")
+            }
+            return err})
+     }
+}

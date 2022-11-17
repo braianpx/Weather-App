@@ -1,19 +1,20 @@
 import Card from "../Card/Card.jsx";
 
 const Cards = (props) => {
-    console.log(props)
     return (
         <>
-            { props.cities.map(el => 
-                <Card
+            { props.cities?.map(el =>{ 
+                return <Card
+                getCityDetail={props.getCityDetail || undefined}
                 key={el.name}
+                switchx={props.switchx}
                 onDelete = {props.removeCard} 
                 name={el?.name || "unknown"}
-                img={el?.weather[0].icon || "09d"}
-                min={el?String(el.main.temp_min).slice(0,2) : "unknown"}
-                max={el?String(el.main.temp_max).slice(0,2) : "unknown"}
+                img={el?.weather?el.weather[0].icon : "09d"}
+                min={el?.main?.temp_min?Math.round(el.main.temp_min - 273.15) : "unknown"}
+                max={el?.main?.temp_max?Math.round(el.main.temp_max - 273.15) : "unknown"}
                 />
-                )}
+                })}
         </>
     ) 
  }

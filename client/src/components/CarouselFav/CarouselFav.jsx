@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState, useMemo } from "react";
 import Cards from "../Cards/Cards";
 import "./CarouselFav.css";
 
@@ -8,17 +6,19 @@ const CarouselFav = (props) => {
 
 const [ switchFav , setSwitchFav ] = useState(true)
 useEffect(()=>{
-if(!props.favorites[0] || !props.user.username) setSwitchFav(false)
-},[])
+    console.log(props.user)
+    if(props.favorites < 3) props.setPagination(1)
+if(!props.favorites?.length > 0 || !props.user.username) setSwitchFav(false)
+else setSwitchFav(true)
+},[props.favorites,props.user.username])
 const selectSearch = () => {
     const element = document.querySelector("#formSearch")
     const input = document.querySelector('#idInputSearch')
     element.scrollIntoView()
     input.select()
   }; 
-    console.log(props.favorites)
     return (
-        <div id="idCarouselCard" class="d-flex justify-content-around  align-items-center border-2  border-top border-bottom">
+        <div id="idCarouselCard" class="d-flex justify-content-around  align-items-center border-dark border-1  border-top border-bottom ">
             { !switchFav?
                 <div id="id_div_not_found_fav" className="row col-4 row-cols-1 border border-1 border-dark rounded-3 h-75">
                     <div className="col-12 d-flex text-center justify-content-center align-items-center pt-3 pb-2">
@@ -27,7 +27,7 @@ const selectSearch = () => {
                         </span>
                     </div>
                     <div className="col-12 d-flex text-center justify-content-around align-items-start">
-                        <button className="btn btn-primary ms-5" onClick={()=>props.user.username?props.setSwitchLogIn():alert("you already logged in")} >
+                        <button className="btn btn-primary ms-5" onClick={()=>!props.user.username?props.setSwitchLogIn(true):alert("you already logged in")} >
                            Go To LogIn
                         </button>
                         <button className="btn btn-primary me-5" onClick={selectSearch} >

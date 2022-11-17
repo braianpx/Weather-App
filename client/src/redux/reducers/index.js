@@ -32,12 +32,12 @@ case GET_CITIES:
 case CITY_DETAIL:
     return{
         ...state,
-        cityDetail: state.cities.find(el => el.name === action.payload) || {}
+        cityDetail: state.cities.find(el => el.name === action.payload) || state.favorites.find(el => el.name === action.payload) || {}
     }
 case ADD_FAVORITES:
     return{
         ...state,
-        favorites: state.favorites.concat(action.payload)
+        favorites: state.favorites.concat({name:action.payload})
     }
 case DELETE_FAVORITES:
     return{

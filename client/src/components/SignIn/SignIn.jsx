@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import validatorLogin from './validator';
-import { signIn, signInDispatch} from '../../redux/actions/index';
+import { signIn, signInDispatch } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
 import './SignIn.css';
 

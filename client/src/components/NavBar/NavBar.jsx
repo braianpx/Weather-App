@@ -1,17 +1,35 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../redux/actions/index';
+import { useState } from 'react';
 
 const NavBar = (props) =>{
 
+const location = useLocation();
 const dispatch = useDispatch();
 const user = useSelector(state=> state.user)
+const [redirect, setRedirect] = useState(false)
+const [redirectSearch, setRedirectSearch] = useState(false)
+const [search, setSearch] = useState(false)
 const selectSearch = () => {
+  if(location.pathname === "/home/favorites"){
+    setRedirectSearch(true)
+}else{
   const element = document.querySelector("#formSearch")
   const input = document.querySelector('#idInputSearch')
   element.scrollIntoView()
-  input.select()
-}; 
+  input.select()}
+};
+console.log(props)
+if(!search && props.search){
+  setSearch(true)
+  setTimeout(()=>{selectSearch()},200)
+}
+if(redirect){
+  return <Navigate to="/home" state={{deleteUser:true}}/>
+}else if(redirectSearch){
+  return <Navigate to="/home" state={{search:true}}/>
+}
     return(
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100" >
   <div className="container-fluid">
@@ -32,7 +50,7 @@ const selectSearch = () => {
           </a>
           <ul className="dropdown-menu">
             <li><button to="users/sign_in" className="dropdown-item" onClick={()=> dispatch(logOut(false))}>LogOut</button></li>
-            <li><button className="dropdown-item" onClick={()=>props.setSwitchDelete({...props.switchDelete,boolean:true})}>Delete Account</button></li>
+            <li><button className="dropdown-item" onClick={()=>{props.setSwitchDelete?props.setSwitchDelete({...props.switchDelete,boolean:true}): setRedirect(true) }}>Delete Account</button></li>
           </ul>
         </li>
         :
@@ -41,10 +59,14 @@ const selectSearch = () => {
         </li>
         }
         <li className="nav-item">
-          <span className="nav-link active" >Favorites</span>
+        {user.username?
+        <Link to={"/home/favorites"} className="nav-link active">Favorites</Link>
+        :
+        <span className="nav-link disabled" style={{cursor:"pointer"}} onClick={()=>alert('to access favorites you must first log in')} >Favorites</span>  
+        }
         </li>
         <li className="nav-item">
-          <span onClick={()=> selectSearch()} className="nav-link active" style={{cursor:'pointer'}} >Search City</span>
+          <span onClick={()=>selectSearch()} className="nav-link active" style={{cursor:'pointer'}} >Search City</span>
         </li>
       </ul>
     </div>

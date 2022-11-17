@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import './DeleteUser.css';
 
 const DeleteUser = (props) => {
-const user = useSelector(state => state.user)
 const [switchSpinner, setSwitchSpinner] = props.useState(false)
 const [userDeleteSuccess, setUserDeleteSuccess] = props.useState(false)
 const [yesOrNo , setYesOrNo] = props.useState(true)
@@ -22,7 +21,7 @@ const reloadTimeSpinner= () => {
     timeSpinner()
 }
     return(
-        <div class="position-fixed top-0 start-0 end-0 bottom-0 d-flex justify-content-center align-items-center" >
+        <div id="container_delete_user" class="position-fixed top-0 start-0 end-0 bottom-0 d-flex justify-content-center align-items-center" >
             <div className="bg-white border border-1 border-secondary rounded p-3 pt-0 w-25" >
                 <div className="col-12 d-flex justify-content-end pb-2">
                         <button className="border-0 bg-white text text-secondary fs-6" onClick={()=>props.setSwitchDelete({...props.switchDelete,boolean:false})}>x</button>

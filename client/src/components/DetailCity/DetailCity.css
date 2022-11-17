@@ -1,0 +1,46 @@
+#id-div-detail-city{
+    background-size: cover;
+    box-shadow: 0px 0px 0.5rem 0.2rem rgb(140, 139, 139);
+    animation-name: fadingDetailCity;
+    animation-duration:50s;
+    animation-iteration-count: infinite;
+    animation-direction:normal;
+    animation-fill-mode:forwards;
+    animation-timing-function:linear;
+}
+#id-div-conteiner-detail-city{
+    background:  rgba(0, 0, 0, 0.2) !important;
+    opacity: 0% ;
+    animation-name: fading;
+    animation-duration:.6s;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction:normal;
+    animation-fill-mode:forwards;
+    animation-timing-function:linear;
+}
+@keyframes fadingDetailCity{
+    0%{
+        background-image: url(../../assets/img/techos-topes-de-nubes-y-su-medicion-367001-1_1024.webp) ;
+    }
+    50%{
+        background-image: url(../../assets/img/te-ha-preguntado-que-influencia-tiene-las-nubes-en-nuestro-planeta-187382-2_1280.webp) ;
+    }
+    95%{
+        background-image: url(../../assets/img/nubes\ 3.webp) ;
+    }
+    100%{
+        background-image: url(../../assets/img/techos-topes-de-nubes-y-su-medicion-367001-1_1024.webp)
+    }
+    }
+
+#id-quit-detail-card{
+    color: white !important;
+    cursor: pointer;
+    transition: all 0.4s;
+}#id-quit-detail-card:hover{
+    font-size: 2.3rem !important;
+}
+#id-div-conteiner-detail{
+text-shadow: black 1px 1px 3px  !important;
+}

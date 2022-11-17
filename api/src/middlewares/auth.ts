@@ -14,7 +14,6 @@ export default new JWTStrategy(
             }
             return done(null,false)
         }catch(err){
-            console.log(err);
             return done(err);
         }
     }
