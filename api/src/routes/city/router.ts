@@ -1,9 +1,9 @@
-import  { Router } from 'express';
-const { getCity, getCities } = require('./controller')
+import { Router } from 'express';
+import { getCity, getCities } from './controller';
 
 const router = Router();
 
-router.get('/', getCity)
-router.get('/all', getCities)
+router.get('/', getCity);
+router.get('/all', getCities);
 
-module.exports = router;
+export default router;

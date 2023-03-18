@@ -1,7 +1,7 @@
 import { prop, getModelForClass, Ref } from '@typegoose/typegoose';
 import { User } from './User';
 
-class Favorites {
+export class Favorites {
 
     @prop({ type: () => [String], default:[]})
     favorites:string[];

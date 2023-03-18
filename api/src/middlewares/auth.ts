@@ -1,5 +1,5 @@
 import { ExtractJwt, Strategy as JWTStrategy } from 'passport-jwt';
-import UserModel from '../models/User';
+import UserModel, { User } from '../models/User';
 
 export default new JWTStrategy(
     {
@@ -8,11 +8,11 @@ export default new JWTStrategy(
     },
     async (payload, done) => {
         try{
-            const user = await UserModel.findById(payload.id)
+            const user:User | null = await UserModel.findById(payload.id);
             if(user){
-                return done(null,user)
+                return done(null,user);
             }
-            return done(null,false)
+            return done(null,false);
         }catch(err){
             return done(err);
         }

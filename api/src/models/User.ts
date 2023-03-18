@@ -22,10 +22,10 @@ export class User {
     @prop({type:String, unique:true, trim:true, required:true})
     username:string
 
-    @prop({type:String, required:true, minlength:7})
+    @prop({type:String, required:true, minlength:6})
     password:string
 
-    comparePassword(this: DocumentType <User> , password:string){
+    comparePassword(this: DocumentType<User> , password:string){
     return bcrypt.compare(password,this.password)
     }
 }
