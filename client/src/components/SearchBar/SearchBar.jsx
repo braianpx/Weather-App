@@ -17,17 +17,17 @@ setName('');
 };
 
     return(
-              <div class="container w-50 my-2">
-                    <form id="formSearch" class="d-flex" role="search" onSubmit={(e)=> handleOnSubmit(e)}>
+              <div className="container w-50 my-2">
+                    <form id="formSearch" className="d-flex" role="search" onSubmit={(e)=> handleOnSubmit(e)}>
                     <input id="idInputSearch"
-                    class="form-control shadow-sm border-secondary me-2" 
+                    className="form-control shadow-sm border-secondary me-2" 
                     type="search" 
                     placeholder="Search" 
                     aria-label="Search"
                     value={name}
                     onChange={handleInputChange}
                     />
-                    <button class="btn btn-outline-dark" type="submit"> Search </button>
+                    <button className="btn btn-outline-dark" type="submit"> Search </button>
                     </form>
                 </div>           
     )

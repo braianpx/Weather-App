@@ -6,7 +6,7 @@ import ContainerCards from '../ConteinerCards/ConteinerCards.jsx';
 import SignInAndSignUp from '../SignInAndSignUp/SignInAndSignUp.jsx';
 import DetailCity from '../DetailCity/DetailCity.jsx';
 import DeleteUser from '../DeleteUser/DeleteUser.jsx'
-import { addCityDetail, getCities, deleteAccount , dispDeleteAccount, getFavorites, deleteFavorites } from '../../redux/actions/index';
+import { addCityDetail, getCities, deleteAccount , dispDeleteAccount, getFavorites } from '../../redux/actions/index';
 import { useDispatch, useSelector } from 'react-redux'  
 import { useEffect, useState, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -23,12 +23,12 @@ const [switchDelete, setSwitchDelete ] = useState({
     messageError:'',
     yes:async()=>{
         const response = await deleteAccount();
-        if(Object.keys(response).find(el => el === "response")){
+        if(response.response){
             setSwitchDelete({
                 ...switchDelete,
                 message:'',
                 boolean:true,
-                messageError: response.response.data || 'oops an error occurred'
+                messageError: response.response.status === 500? 'oops an error occurred' : response.response.data
                 })
         }else{
             setSwitchDelete({
@@ -36,7 +36,6 @@ const [switchDelete, setSwitchDelete ] = useState({
                 boolean:true,
                 message: response.data || 'User deleted successfuly'
         })
-        dispatch(deleteFavorites())
         dispatch(dispDeleteAccount())
         window.localStorage.clear()                     
         }
@@ -60,7 +59,8 @@ useEffect(()=>{
     dispatch(getCities())
 },[]);
 useEffect(()=>{
-    if(user.username) dispatch(getFavorites())
+    if(user.username) 
+        dispatch(getFavorites())
 },[user.username]);
 useMemo(()=>{
     if(switchLogIn || switchDetailCity){
@@ -69,8 +69,9 @@ useMemo(()=>{
         document.querySelector("Body").style.overflow = "auto"
     }
 },[switchLogIn,switchDetailCity])
+
 const cardsSlice = favorites?.slice(cantCards * pagination - cantCards,cantCards * pagination);
-////pagination functions///
+
 const nextPage = () =>{
 if(pagination === 1 && pagination < 2) setPagination(pagination +1)
 }
@@ -81,36 +82,30 @@ const getCityDetail = (city) => {
     setSwitchDetailCity(true)
     dispatch(addCityDetail(city))
 }
-
-console.log(switchDetailCity, cities)
     return(
         
            <div id="id-div-home">    
             <NavBar setSwitchLogIn={setSwitchLogIn} setSwitchDelete={setSwitchDelete} switchDelete={switchDelete} search={location?.state?.search || false}/>    
             <div id="id-div-content-fading">
-            <div class="container-fluid ">
+            <div className="container-fluid ">
                 <div className='d-flex justify-content-center row row-cols-1'>
-                    <div id="id-div-container-carrousel" class="col pt-4 d-flex justify-content-center w-100 h-50 border-bottom border-bottom-5 border-dark">
+                    <div id="id-div-container-carrousel" className="col pt-4 d-flex justify-content-center w-100 h-50 border-bottom border-bottom-5 border-dark">
                         <Carousell citys={citiesHome}/>
                     </div>
-                    <p class="text-muted fs-5 fw-semibold mb-0 mt-3">Favorites</p>
-                    <div class="w-100 mt-0 mb-3 d-flex justify-content-center align-items-center">
-                        {favorites.length > 3 && pagination !== 1?
-                            <i  id="idHomeFav" class="bi bi-arrow-left-circle-fill " onClick={()=>user.username?previousPage():null} ></i>
-                            :
-                            null
+                    <p className="text-muted fs-5 fw-semibold mb-0 mt-3">Favorites</p>
+                    <div className="w-100 mt-0 mb-3 d-flex justify-content-center align-items-center">
+                        {favorites.at(3) && pagination !== 1 && favorites.at(0) &&
+                            <i  id="idHomeFav" className="bi bi-arrow-left-circle-fill " onClick={()=>user.username && previousPage()} ></i>
                         }
                             <CarouselFav favorites={cardsSlice} user={user} setSwitchLogIn={setSwitchLogIn} getCityDetail={getCityDetail} setSwitchDetailCity={setSwitchDetailCity} setPagination={setPagination}/>
-                        {favorites.length > 3 && pagination !== 2?
-                            <i id="idHomeFav" class="bi bi-arrow-right-circle-fill " onClick={()=>user.username?nextPage():null} ></i>
-                        :
-                        null
+                        {favorites.at(3) && pagination !== 2 && favorites.at(0) &&
+                            <i id="idHomeFav" className="bi bi-arrow-right-circle-fill " onClick={()=>user.username && nextPage()} ></i>
                         }
                     </div>
-                    <div class="col w-50 my-3" >
+                    <div className="col w-50 my-3" >
                         <SearchBar dispatch={dispatch}/>
                     </div>
-                        <div class="mb-5" >
+                        <div className="mb-5" >
                             <ContainerCards cities={cities} switchx={true} getCityDetail={getCityDetail} setSwitchDetailCity={setSwitchDetailCity} />
                         </div>
                 </div>

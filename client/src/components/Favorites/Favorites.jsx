@@ -2,7 +2,7 @@ import Cards from "../Cards/Cards";
 import NavBar from "../NavBar/NavBar";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { getFavorites, addCityDetail } from "../../redux/actions";
 import '../Home/Home.css';
 
@@ -17,9 +17,9 @@ const getCityDetail = (city) => {
     setSwitchCityDetail(true)
 }
 
-useMemo(()=>{
-if(favorites.length < 1) dispatch(getFavorites())
-},[favorites]);
+useEffect(()=>{
+        dispatch(getFavorites())
+},[]);
 
 if(!user.username){
     return <Navigate to='/home'/>
@@ -31,7 +31,11 @@ if(!user.username){
             <div className="container my-4 p-3">
                 <div className="row row-cols-1">
                      <div className="row col-12 border border-dark border-1 rounded-3 " style={{height:"36rem"}}>
-                        <Cards cities={favorites} switchx={false} getCityDetail={getCityDetail}/>
+                        {favorites.at(0)?
+                            <Cards cities={favorites} switchx={false} getCityDetail={getCityDetail}/>:
+                            <h1>No Favorites</h1>
+                        }
+                        
                     </div>  
                 </div>
             </div>

@@ -1,7 +1,7 @@
-const { GET_CITY, GET_CITIES, ADD_FAVORITES, DELETE_FAVORITES,
+import { GET_CITY, GET_CITIES, ADD_FAVORITES, DELETE_FAVORITES,
 REMOVE_FAVORITES, GET_FAVORITES, SIGN_IN, DELETE_ACCOUNT,
-URL_API, CITY_DETAIL, REMOVE_CITY, LOG_OUT} = require('./actionTypes.js')
-const axios = require('axios');
+URL_API, CITY_DETAIL, REMOVE_CITY, LOG_OUT} from './actionTypes.js';
+import axios from 'axios';
 
 //// City 
 export const getCity = (city) =>{
@@ -43,7 +43,7 @@ export const getCity = (city) =>{
                 payload: city.data
                 });    
         })
-        .catch(data => console.log(data))
+        .catch(data => data)
     }
 }
 export const addCityDetail = (city) =>{ 
@@ -56,7 +56,6 @@ export const addCityDetail = (city) =>{
 };
 export const removeCity = (city) =>{
     return function (dispatch){
-        console.log(city)
         return dispatch({
             type: REMOVE_CITY,
             payload: city
@@ -115,9 +114,13 @@ export const deleteAccount = () =>{
 export const dispDeleteAccount = () => {
     return function(dispatch){
          dispatch({
-        type: DELETE_ACCOUNT,
-        payload: {}
-    })
+            type: DELETE_ACCOUNT,
+            payload: {}
+        })
+        dispatch({
+            type:DELETE_FAVORITES,
+            payload: []
+        })
     }
 }
 export const logOut = (data) =>{
@@ -152,39 +155,6 @@ export const addFavorites = (cityName) =>{
             })
             return data;
         }).catch(err => {
-            if(err.response.data === "Unauthorized" && err.response.status === 401){
-                window.localStorage.clear()
-                dispatch({
-                    type: LOG_OUT,
-                    payload: false
-                })
-                dispatch({
-                    type:DELETE_FAVORITES,
-                    payload: []
-                })
-                alert("Session time out, log in again")
-            }
-            return err})
-     }
-}
-export const deleteFavorites = () =>{
-    return function (dispatch){
-        axios({
-            method:'delete',
-            url:`${URL_API}/favorites/delete`,
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${JSON.parse(localStorage.getItem("tokenUser")).token}`
-              },
-            })
-        .then(data => {
-            dispatch({
-                type:DELETE_FAVORITES,
-                payload: []
-            })
-            console.log(data);
-        })
-        .catch(err => {
             if(err.response.data === "Unauthorized" && err.response.status === 401){
                 window.localStorage.clear()
                 dispatch({
@@ -247,7 +217,6 @@ export const getFavorites = () =>{
                 payload: data.data
             })
         }).catch(err => {
-            console.log(err);
             if(err.response.data === "Unauthorized" && err.response.status === 401){
                 window.localStorage.clear()
                 dispatch({

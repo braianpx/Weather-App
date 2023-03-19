@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import './DeleteUser.css';
 
 const DeleteUser = (props) => {
@@ -21,7 +20,7 @@ const reloadTimeSpinner= () => {
     timeSpinner()
 }
     return(
-        <div id="container_delete_user" class="position-fixed top-0 start-0 end-0 bottom-0 d-flex justify-content-center align-items-center" >
+        <div id="container_delete_user" className="position-fixed top-0 start-0 end-0 bottom-0 d-flex justify-content-center align-items-center" >
             <div className="bg-white border border-1 border-secondary rounded p-3 pt-0 w-25" >
                 <div className="col-12 d-flex justify-content-end pb-2">
                         <button className="border-0 bg-white text text-secondary fs-6" onClick={()=>props.setSwitchDelete({...props.switchDelete,boolean:false})}>x</button>
@@ -32,8 +31,8 @@ const reloadTimeSpinner= () => {
                 {
                 switchSpinner?
                 <div className="col-12 text-center my-3">
-                    <div class="spinner-border text-dark" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                    <div className="spinner-border text-dark" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
                 :
@@ -44,7 +43,7 @@ const reloadTimeSpinner= () => {
                   <div className="col-12 text-center">
                     <h5 className={`${props.switchDelete.message?'text-success':'text-danger'} text my-3`}>
                     {props.switchDelete.message?props.switchDelete.message : props.switchDelete.messageError} 
-                    {props.switchDelete.message?<i class="bi bi-check-lg fs-3"></i> : <i class="bi bi-exclamation-circle-fill fs-3 ms-2"></i>}
+                    {props.switchDelete.message?<i className="bi bi-check-lg fs-3"></i> : <i className="bi bi-exclamation-circle-fill fs-3 ms-2"></i>}
                     </h5>
                     {
                         props.switchDelete.messageError?
@@ -56,7 +55,7 @@ const reloadTimeSpinner= () => {
                                 onClick={()=>{props.setSwitchDelete({...props.switchDelete, messageError:'', message:''}); props.switchDelete.yes(); reloadTimeSpinner()}}
                                 >
                                     <span className="text me-1">Retry</span>
-                                    <i id='id_retry' class="bi bi-arrow-repeat text-success fs-4 "></i>
+                                    <i id='id_retry' className="bi bi-arrow-repeat text-success fs-4 "></i>
                                 </button>
                             </div>
                         :

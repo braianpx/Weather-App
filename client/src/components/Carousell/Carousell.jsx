@@ -7,73 +7,73 @@ import './Carousell.css'
 
 const Carousell = (props) => {
     return ( 
-<div id="carouselExampleDark" class="carousel carousel slide fw-semibold  w-75 h-50 mb-4" data-bs-ride="carousel" >
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+<div id="carouselExampleDark" className="carousel carousel slide fw-semibold  w-75 h-50 mb-4" data-bs-ride="carousel" >
+  <div className="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="50000">
-      <img src={Argentina} class="d-block w-100 rounded-2" alt="Buenos-Aires" />
-      <div class="carousel-caption d-none d-md-block">
+  <div className="carousel-inner">
+    <div className="carousel-item active" data-bs-interval="50000">
+      <img src={Argentina} className="d-block w-100 rounded-2" alt="Buenos-Aires" />
+      <div className="carousel-caption d-none d-md-block">
         <h2>{props.citys[0]?.name || "World"}</h2>
-        <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${Math.round(props.citys[0]?.main.temp_min - 273.15) || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${Math.round(props.citys[0]?.main.temp_max - 273.15) || "0"}°`}</h5>
+        <div className="d-flex justify-content-center my-3">
+        <h5 className="me-2">{`Min ${Math.round(props.citys[0]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 className="ms-2">{`Max ${Math.round(props.citys[0]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-bs-interval="50000">
-      <img src={Brazil} class="d-block w-100 rounded-2" alt="..." />
-      <div class="carousel-caption d-none d-md-block">
+    <div className="carousel-item" data-bs-interval="50000">
+      <img src={Brazil} className="d-block w-100 rounded-2" alt="..." />
+      <div className="carousel-caption d-none d-md-block">
       <h2>{props.citys[1]?.name || "World"}</h2>
-        <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${Math.round(props.citys[1]?.main.temp_min - 273.15) || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${Math.round(props.citys[1]?.main.temp_max - 273.15) || "0"}°`}</h5>
+        <div className="d-flex justify-content-center my-3">
+        <h5 className="me-2">{`Min ${Math.round(props.citys[1]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 className="ms-2">{`Max ${Math.round(props.citys[1]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-bs-interval="50000">
-      <img src={Inglaterra} class="d-block w-100 rounded-2" alt="..." />
-      <div class="carousel-caption d-none d-md-block">
+    <div className="carousel-item" data-bs-interval="50000">
+      <img src={Inglaterra} className="d-block w-100 rounded-2" alt="..." />
+      <div className="carousel-caption d-none d-md-block">
       <h2>{props.citys[2]?.name || "World"}</h2>
-        <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${Math.round(props.citys[2]?.main.temp_min - 273.15) || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${Math.round(props.citys[2]?.main.temp_max - 273.15) || "0"}°`}</h5>
+        <div className="d-flex justify-content-center my-3">
+        <h5 className="me-2">{`Min ${Math.round(props.citys[2]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 className="ms-2">{`Max ${Math.round(props.citys[2]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-bs-interval="50000">
-      <img src={Colombia} class="d-block w-100 rounded-2" alt="..." />
-      <div class="carousel-caption d-none d-md-block">
+    <div className="carousel-item" data-bs-interval="50000">
+      <img src={Colombia} className="d-block w-100 rounded-2" alt="..." />
+      <div className="carousel-caption d-none d-md-block">
       <h2>{props.citys[3]?.name || "World"}</h2>
-        <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${Math.round(props.citys[3]?.main.temp_min - 273.15) || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${Math.round(props.citys[3]?.main.temp_max - 273.15) || "0"}°`}</h5>
+        <div className="d-flex justify-content-center my-3">
+        <h5 className="me-2">{`Min ${Math.round(props.citys[3]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 className="ms-2">{`Max ${Math.round(props.citys[3]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>
-    <div class="carousel-item" data-bs-interval="50000">
-      <img src={EstadosUnidos} class="d-block w-100 rounded-2" alt="..." />
-      <div class="carousel-caption d-none d-md-block">
+    <div className="carousel-item" data-bs-interval="50000">
+      <img src={EstadosUnidos} className="d-block w-100 rounded-2" alt="..." />
+      <div className="carousel-caption d-none d-md-block">
       <h2>{props.citys[4]?.name || "World"}</h2>
-        <div class="d-flex justify-content-center my-3">
-        <h5 class="me-2">{`Min ${Math.round(props.citys[4]?.main.temp_min - 273.15) || "0"}°`}</h5>
-        <h5 class="ms-2">{`Max ${Math.round(props.citys[4]?.main.temp_max - 273.15) || "0"}°`}</h5>
+        <div className="d-flex justify-content-center my-3">
+        <h5 className="me-2">{`Min ${Math.round(props.citys[4]?.main.temp_min - 273.15) || "0"}°`}</h5>
+        <h5 className="ms-2">{`Max ${Math.round(props.citys[4]?.main.temp_max - 273.15) || "0"}°`}</h5>
         </div>
       </div>
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+  <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+  <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Next</span>
   </button>
 </div>
     )

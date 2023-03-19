@@ -7,10 +7,10 @@ const SingInAndSingUp = (props) =>{
 
 const [switchSign, setSwitchSign] = useState(true)
     return(
-        <div id='id-div-conteiner-sign' class="position-fixed top-0 start-0 end-0 bottom-0 d-flex justify-content-center align-items-center">
-            <div class="container">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-4">  
+        <div id='id-div-conteiner-sign' className="position-fixed top-0 start-0 end-0 bottom-0 d-flex justify-content-center align-items-center">
+            <div className="container">
+                <div className="row justify-content-center align-items-center">
+                    <div className="col-4">  
                         {
                         switchSign?
                         <SignIn setSwitchSign={setSwitchSign} setSwitchLogIn={props.setSwitchLogIn}/>

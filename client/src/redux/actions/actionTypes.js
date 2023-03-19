@@ -1,30 +1,15 @@
-const GET_CITY =  'GET_CITY';
-const GET_CITIES =  'GET_CITIES';
-const ADD_FAVORITES =  'ADD_FAVORITES';
-const DELETE_FAVORITES =  'DELETE_FAVORITES';
-const REMOVE_FAVORITES =  'REMOVE_FAVORITES';
-const GET_FAVORITES =  'GET_FAVORITES';
-const SIGN_IN =  'SIGN_IN';
-const DELETE_ACCOUNT =  'DELETE_ACCOUNT';
-const CITY_DETAIL = "CITY_DETAIL";
-const REMOVE_CITY = "REMOVE_CITY";
-const LOG_OUT = 'LOG_OUT';
+export const GET_CITY =  'GET_CITY';
+export const GET_CITIES =  'GET_CITIES';
+export const ADD_FAVORITES =  'ADD_FAVORITES';
+export const DELETE_FAVORITES =  'DELETE_FAVORITES';
+export const REMOVE_FAVORITES =  'REMOVE_FAVORITES';
+export const GET_FAVORITES =  'GET_FAVORITES';
+export const SIGN_IN =  'SIGN_IN';
+export const DELETE_ACCOUNT =  'DELETE_ACCOUNT';
+export const CITY_DETAIL = "CITY_DETAIL";
+export const REMOVE_CITY = "REMOVE_CITY";
+export const LOG_OUT = 'LOG_OUT';
 
 //////
 
-const URL_API = "http://localhost:3001";
-
-module.exports = {
-    GET_CITY,
-    GET_CITIES,
-    ADD_FAVORITES,
-    DELETE_FAVORITES,
-    REMOVE_FAVORITES,
-    GET_FAVORITES,
-    SIGN_IN,
-    DELETE_ACCOUNT,
-    URL_API,
-    CITY_DETAIL,
-    REMOVE_CITY,
-    LOG_OUT
-} 
+export const URL_API = "http://localhost:27017";

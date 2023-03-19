@@ -20,7 +20,6 @@ const selectSearch = () => {
   element.scrollIntoView()
   input.select()}
 };
-console.log(props)
 if(!search && props.search){
   setSearch(true)
   setTimeout(()=>{selectSearch()},200)

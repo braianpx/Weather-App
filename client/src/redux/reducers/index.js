@@ -1,6 +1,6 @@
-const { GET_CITY, GET_CITIES, CITY_DETAIL, ADD_FAVORITES,
+import { GET_CITY, GET_CITIES, CITY_DETAIL, ADD_FAVORITES,
     DELETE_FAVORITES, REMOVE_FAVORITES, GET_FAVORITES,
-     SIGN_IN, DELETE_ACCOUNT, REMOVE_CITY,LOG_OUT } = require('../actions/actionTypes')
+     SIGN_IN, DELETE_ACCOUNT, REMOVE_CITY,LOG_OUT } from '../actions/actionTypes';
 
 const initialState = {
  cityDetail:{},
