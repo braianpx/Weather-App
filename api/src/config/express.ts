@@ -13,7 +13,7 @@ import user from '../routes/user/router';
 const server = express();
 
 //////  Middlewares ////
-server.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit:50000}));
+server.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 server.use(bodyParser.json({ limit: '50mb'} ));
 server.use(cookieParser());
 server.use(cors()); ////// transforma la req de body en json

@@ -1,7 +1,7 @@
 import {Response, Request} from 'express';
 import FavoritesModels from '../../models/Favorites';
 import { Favorites } from '../../models/Favorites';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { User } from '../../models/User';
 import { DocumentType } from '@typegoose/typegoose';
 const { API_KEY} = process.env;
@@ -67,13 +67,12 @@ try{
         return res.status(401).json({data:"unexpected error"});
     const favorites:DocumentType<Favorites> | null = await FavoritesModels.findOne({idUser:idUser},{favorites:1, _id:0});
     
-    if(!favorites?.favorites[0])
-        return res.status(404).json({data:"No favorites found"});
-        
+    if(!favorites)
+        return res.status(404).json('Favorites not found')
+
     const cities:Array<object> = await Promise.all(favorites.favorites.map(async(el:string)=>{
         const city:string = el.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        const request:AxiosResponse = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
-        return request.data;
+        return await (await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`)).data;
     }));
     return res.status(200).json(cities);
 }catch(err:any){

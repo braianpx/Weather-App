@@ -59,3 +59,14 @@ try{
 }catch(err:any){
     return res.status(500).json({data:err.message});
 }};
+
+
+export const getAll = async (_req:Request, res:Response) => {
+  try{
+    const users:DocumentType<User>[] | null = await UserModel.find({},{username:1,});
+    res.status(200).json(users);
+  }catch(err:any){
+    res.status(500).json({data: err.message})
+  }
+
+}
