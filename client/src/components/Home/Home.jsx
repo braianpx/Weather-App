@@ -49,19 +49,23 @@ const [switchDelete, setSwitchDelete ] = useState({
 });
 const [ switchLogIn, setSwitchLogIn] = useState(false);
 const [pagination, setPagination] = useState(1);
-const cantCards = 3;
+let cantCards = 3;
 const citiesHome = useSelector(state => state.citiesHome)
 const cities = useSelector(state => state.cities)
 const user = useSelector(state => state.user)
 const favorites = useSelector(state => state.favorites)
 
+if(window.screen.width < 1250){
+    if(window.screen.width < 870) cantCards = 1;
+    else cantCards = 2;
+}
 useEffect(()=>{
     dispatch(getCities())
-},[]);
+},[])
 useEffect(()=>{
     if(user.username) 
         dispatch(getFavorites())
-},[user.username]);
+},[user.username])
 useMemo(()=>{
     if(switchLogIn || switchDetailCity){
         document.querySelector("Body").style.overflow = "hidden"
@@ -69,18 +73,20 @@ useMemo(()=>{
         document.querySelector("Body").style.overflow = "auto"
     }
 },[switchLogIn,switchDetailCity])
-
 const cardsSlice = favorites?.slice(cantCards * pagination - cantCards,cantCards * pagination);
 
 const nextPage = () =>{
-if(pagination === 1 && pagination < 2) setPagination(pagination +1)
+if(pagination >= 1) setPagination(pagination +1)
 }
 const previousPage = () =>{
-if(pagination === 2 && pagination > 1) setPagination(pagination -1)
+if(pagination > 1) setPagination(pagination -1)
 }
 const getCityDetail = (city) => {
     setSwitchDetailCity(true)
     dispatch(addCityDetail(city))
+}
+const conditionalWidthFav = () => {
+    return Math.ceil(favorites.length/cantCards)
 }
     return(
         
@@ -98,11 +104,11 @@ const getCityDetail = (city) => {
                             <i  id="idHomeFav" className="bi bi-arrow-left-circle-fill " onClick={()=>user.username && previousPage()} ></i>
                         }
                             <CarouselFav favorites={cardsSlice} user={user} setSwitchLogIn={setSwitchLogIn} getCityDetail={getCityDetail} setSwitchDetailCity={setSwitchDetailCity} setPagination={setPagination}/>
-                        {favorites.at(3) && pagination !== 2 && favorites.at(0) &&
+                        {favorites.at(3) && favorites.at(0) && pagination !== conditionalWidthFav() &&
                             <i id="idHomeFav" className="bi bi-arrow-right-circle-fill " onClick={()=>user.username && nextPage()} ></i>
                         }
                     </div>
-                    <div className="col w-50 my-3" >
+                    <div className="col my-3" >
                         <SearchBar dispatch={dispatch}/>
                     </div>
                         <div className="mb-5" >
@@ -110,27 +116,20 @@ const getCityDetail = (city) => {
                         </div>
                 </div>
             </div>
-                {
-                    switchLogIn? 
+                {switchLogIn &&
                     <div id="id-window-Login" className="h-100 w-100">
                         <SignInAndSignUp setSwitchLogIn={setSwitchLogIn} switchLogIn={switchLogIn} />
                         </div>
-                    : null
                 }
-                {
-                    switchDelete.boolean?
+                {switchDelete.boolean &&
                     <div className="w-100 h-100">
                         <DeleteUser switchDelete={switchDelete} setSwitchDelete={setSwitchDelete} useState={useState}/>
                     </div>
-                    :
-                    null
                 }
-                {   switchDetailCity?
+                {switchDetailCity &&
                     <div className='w-100 h-100'>
                         <DetailCity setSwitchDetailCity={setSwitchDetailCity}/>
                     </div>
-                    :
-                    null
                 }
                 </div>
              </div>

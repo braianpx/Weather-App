@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getCity } from "../../redux/actions/index";
+import './SearchBar.css';
 
 const SearchBar = (props) =>{
 
@@ -17,15 +18,15 @@ setName('');
 };
 
     return(
-              <div className="container w-50 my-2">
+              <div className="container my-2 justify-content-center align-items-center align-content-center" id='id_div_search_bar'>
                     <form id="formSearch" className="d-flex" role="search" onSubmit={(e)=> handleOnSubmit(e)}>
                     <input id="idInputSearch"
-                    className="form-control shadow-sm border-secondary me-2" 
-                    type="search" 
-                    placeholder="Search" 
-                    aria-label="Search"
-                    value={name}
-                    onChange={handleInputChange}
+                        className="form-control shadow-sm border-secondary me-2" 
+                        type="search" 
+                        placeholder="Search" 
+                        aria-label="Search"
+                        value={name}
+                        onChange={handleInputChange}
                     />
                     <button className="btn btn-outline-dark" type="submit"> Search </button>
                     </form>

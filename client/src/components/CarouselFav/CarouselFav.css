@@ -2,7 +2,17 @@
     height:15rem;
     width:92%;
 }
-#id_div_not_found_fav{
+#idDivNotFoundFav{
     position: relative !important;
     right: 10px !important;
+}
+@media screen and (max-width:800px){
+    #idDivNotFoundFav{
+        width:50% !important;
+    }
+}
+@media screen and (max-width:450px){
+    #idDivNotFoundFav{
+        width:75% !important;
+    }
 }

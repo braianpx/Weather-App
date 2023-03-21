@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFavorites, addCityDetail } from "../../redux/actions";
+import DetailCity from "../DetailCity/DetailCity";
 import '../Home/Home.css';
 
 const Favorites = () =>{
@@ -27,10 +28,9 @@ if(!user.username){
     return(
         <div>
             <NavBar />
-            <div id="id-div-content-fading">
-            <div className="container my-4 p-3">
-                <div className="row row-cols-1">
-                     <div className="row col-12 border border-dark border-1 rounded-3 " style={{height:"36rem"}}>
+            <div id="id-div-content-fading" className="d-flex justify-content-center align-items-center">
+                <div className="col-12 col-sm-11 d-flex justify-content-center align-items-center">
+                     <div className="col-12 row border border-dark border-1 rounded-3 justify-content-center align-items-center text-center" style={{minHeight:'12rem'}}>
                         {favorites.at(0)?
                             <Cards cities={favorites} switchx={false} getCityDetail={getCityDetail}/>:
                             <h1>No Favorites</h1>
@@ -39,7 +39,11 @@ if(!user.username){
                     </div>  
                 </div>
             </div>
-            </div>
+            {switchCityDetail &&
+                    <div className='w-100 h-100'>
+                        <DetailCity setSwitchDetailCity={setSwitchCityDetail}/>
+                    </div>
+                }
         </div>
     )
  }

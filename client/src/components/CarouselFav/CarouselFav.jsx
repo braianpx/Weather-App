@@ -5,23 +5,20 @@ import "./CarouselFav.css";
 const CarouselFav = ({user, favorites, setSwitchLogIn, setPagination, getCityDetail}) => {
 const [ switchFav , setSwitchFav ] = useState(true)
     useEffect(()=>{
-        if(favorites < 3) 
-            setPagination(1)
-        if(!favorites?.at(0) || !user?.username) 
-            setSwitchFav(false)
-        else 
-            setSwitchFav(true)
+        if(favorites < 3) setPagination(1)
+        if(!favorites?.at(0) || !user?.username) setSwitchFav(false)
+        else setSwitchFav(true)
     },[favorites,user?.username])
     const selectSearch = () => {
         const element = document.querySelector("#formSearch")
         const input = document.querySelector('#idInputSearch')
         element.scrollIntoView()
         input.select()
-    }; 
+    };
     return (
-        <div id="idCarouselCard" className="d-flex justify-content-around  align-items-center border-dark border-1  border-top border-bottom ">
+        <div id="idCarouselCard" className="d-flex justify-content-center  align-items-center border-dark border-1  border-top border-bottom ">
             { !switchFav?
-                <div id="id_div_not_found_fav" className="row col-4 row-cols-1 border border-1 border-dark rounded-3 h-75">
+                <div id="idDivNotFoundFav" className="row col-4 row-cols-1 border border-1 border-dark rounded-3 h-75">
                     <div className="col-12 d-flex text-center justify-content-center align-items-center pt-3 pb-2">
                         <span className="text fs-5">
                         {   user?.username?
@@ -30,8 +27,8 @@ const [ switchFav , setSwitchFav ] = useState(true)
                         }
                         </span>
                     </div>
-                    <div className="col-12 d-flex text-center justify-content-around align-items-start">
-                        <button className="btn btn-primary ms-5" onClick={()=> user?.username? selectSearch : setSwitchLogIn(true)} >
+                    <div className="col-12 d-flex text-center justify-content-center align-items-start ">
+                        <button className="btn btn-primary" onClick={()=> user?.username? selectSearch : setSwitchLogIn(true)} >
                             {   user?.username?
                                     'Go Search City':
                                     'Go To LogIn'

@@ -15,17 +15,17 @@ const [user, setUser] = useState({
     password:""
 })
 const handleInputChange = (e) =>{
-if(errors.response){
-    setErrors({})
-    }
-setUser({
-    ...user,
-    [e.target.name] : e.target.value
-})
-setErrors(validatorLogin({
-    ...user,
-    [e.target.name] : e.target.value
-}))
+    if(errors.response) setErrors({})
+    setUser({
+        ...user,
+        [e.target.name] : e.target.value
+    })
+    if(e.target.name === 'password')  
+        setErrors(validatorLogin({
+            ...user,
+            [e.target.name] : e.target.value
+        }))
+                
 }
 const verifyErrors = () => {
     return Object.values(errors).at(0) || 
@@ -59,7 +59,7 @@ const switchSpinner = () =>{
         setSpinner(true)
 }
     return(
-        <div className="container text-center border border-dark rounded-2 border-opacity-50 bg-white ">
+        <div id='idContainerSignIn' className="container text-center border border-dark rounded-2 border-opacity-50 bg-white ">
         { 
         isLogin? 
             <div className='mt-4 mb-5'>
@@ -85,7 +85,7 @@ const switchSpinner = () =>{
                 }
                 
                 <div className="row my-3 justify-content-center">   
-                    <div className="col-sm-8">
+                    <div className="col-8">
                     <input type="username" className={`form-control ${errors.username || errors.response?"is-invalid":user.username[0]?'is-valid':null}`} 
                     aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback"
                     value={user.username}
@@ -100,7 +100,7 @@ const switchSpinner = () =>{
                     </div>                 
                 </div>
                 <div className="row mb-3 justify-content-center">
-                    <div className="col-sm-8">
+                    <div className="col-8">
                     <input type="password" className={`form-control ${errors.password || errors.response?"is-invalid":user.password[0]?'is-valid':null}`}
                     aria-describedby="inputGroupPrepend3 validationServerPasswordFeedback"
                     value={user.password}
@@ -115,7 +115,7 @@ const switchSpinner = () =>{
                     </div>
                 </div>
                 <div className="row justify-content-center">
-                    <div className="col-sm-8">
+                    <div className="col-8">
                     <button type="submit" className="btn btn-primary mt-2 w-100" onClick={switchSpinner} disabled={verifyErrors()}>
                     {   spinner?<>
                         <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

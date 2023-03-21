@@ -72,7 +72,7 @@ const handleOnSubmit = async (e) =>{
             </div>
             <form className="g-3" onSubmit={handleOnSubmit}>
                 <div className="row mb-3 justify-content-center">
-                    <label className="col-sm-12 col-form-label fw-semibold fs-3">Sign Up</label>
+                    <label className="col-12 col-form-label fw-semibold fs-3">Sign Up</label>
                 </div>
                 {
                     errors.response?
@@ -95,7 +95,7 @@ const handleOnSubmit = async (e) =>{
                 :null
                 }
                 <div className="row my-3 justify-content-center">   
-                    <div className="col-sm-8">
+                    <div className="col-8">
                     <input type="username" className={`form-control ${errors.username || errors.response?"is-invalid":user.username[0]?'is-valid':null}`} 
                     aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback"
                     value={user.username}
@@ -110,7 +110,7 @@ const handleOnSubmit = async (e) =>{
                     </div>                 
                 </div>
                 <div className="row mb-3 justify-content-center">
-                    <div className="col-sm-8">
+                    <div className="col-8">
                     <input type="password" className={`form-control ${errors.password || errors.response?"is-invalid":user.password[0]?'is-valid':null}`}
                     aria-describedby="inputGroupPrepend3 validationServerPasswordFeedback"
                     value={user.password}
@@ -125,7 +125,7 @@ const handleOnSubmit = async (e) =>{
                     </div>
                 </div>
                 <div className="row mb-3 justify-content-center">
-                    <div className="col-sm-8">
+                    <div className="col-8">
                     <input type="password" className={`form-control ${errors.repeatPassword || errors.response?"is-invalid":user.repeatPassword[0]?'is-valid':null}`}
                     aria-describedby="inputGroupPrepend3 validationServerPasswordFeedback"
                     value={user.repeatPassword}
@@ -140,7 +140,7 @@ const handleOnSubmit = async (e) =>{
                     </div>
                 </div>
                 <div className="row justify-content-center">
-                    <div className="col-sm-8">
+                    <div className="col-8">
                     <button type="submit" className="btn btn-primary mt-2 w-100" onClick={switchSpinner} disabled={verifyErrors()}>
                     {   spinner?<>
                         <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

@@ -7,6 +7,7 @@
     animation-direction:normal;
     animation-fill-mode:forwards;
     animation-timing-function:linear;
+    z-index: 2 !important;
 }
 #id-div-conteiner-detail-city{
     background:  rgba(0, 0, 0, 0.2) !important;
@@ -43,4 +44,36 @@
 }
 #id-div-conteiner-detail{
 text-shadow: black 1px 1px 3px  !important;
+}
+#idImgCard{
+    background:  rgba(0, 0, 0, 0.3) !important;
+    width: 8rem; 
+}
+
+@media screen and (max-width:1025px) {
+    #id-div-detail-city{
+         width: 75% !important;
+    }
+}
+@media screen and (max-width:769px) {
+    #id-div-detail-city{
+         width: 95% !important;
+    }
+    #idImgCard{
+        width:6rem;
+    }
+}
+@media screen and (max-width:450px) {
+    #idCardTitle{
+        font-size: 1.3rem !important;
+    }
+    .classDatasOfCard{
+        font-size: 1rem;
+    }
+    #IdCardCountry{
+        font-size: 1.2rem;
+    }
+    #id-div-detail-city{
+        width: 99% !important;
+   }
 }

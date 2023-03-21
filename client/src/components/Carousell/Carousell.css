@@ -1,3 +1,16 @@
 #carouselExampleDark{
     text-shadow: black 1px 1px;
+}
+#idButtonCarousellLeft{
+    z-index: 0 !important;
+}
+#idButtonCarousellRight{
+    z-index: 0 !important;
+}
+
+@media screen and (max-width:500px) {
+    #carouselExampleDark{
+        width: 100% !important;
+        height: auto !important;
     }
+}

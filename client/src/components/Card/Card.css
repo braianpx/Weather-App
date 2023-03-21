@@ -26,7 +26,6 @@
     animation-fill-mode:forwards;
     animation-timing-function:linear;
 } 
-
 @keyframes fadingRemove {
     0%{
         opacity: 100% ;
@@ -84,9 +83,24 @@ transition: all 0.4s;
     color: gray !important;   
 }
 #id-img-card{
-background:  rgba(0, 0, 0, 0.3) !important;
+    background:  rgba(0, 0, 0, 0.3) !important;
 }
 #id-div-detail-card{
     cursor: pointer;   
     z-index: 1 !important;
+}
+#idTextDark{
+    text-shadow: black 1px 1px;
+}
+@media screen and (max-width:376px){
+    #idCard{
+        width:14rem !important;
+        height: 10rem !important;
+    }
+    #idCard h4{
+        font-size: 1.1rem !important;
+    }
+    #id-img-card{
+        width: 75% !important;
+    }
 }

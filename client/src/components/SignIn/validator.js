@@ -1,20 +1,6 @@
 function validatorLogin(userState){
     let errors = {}
     
-    if(!userState.username){
-       errors.username = "username is required"
-    }
-     else if(userState.username){
-        if(userState.username.length > 12){
-            errors.username = "the username exceeds 12 characters"
-        }
-                else if(/(?=.*[(°¬|!#[$%&-/()=?¡'¿//+~*}`{///^´¨/-/_/.:,;><@\]])/.test(userState.username)){
-                            errors.username = "must not contain special characters";
-                        }
-                else if(/(?=.*[" "])/.test(userState.username)){
-                  errors.username = "should not contain space";
-                }
-    }
     if(!userState.password){
         errors.password = "password is required";
     }
