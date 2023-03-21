@@ -30,7 +30,7 @@ Weather App is an independently developed web application that allows users to v
 The Weather App webpage is fully responsive, meaning it will adjust to fit different screen sizes, from desktops to mobile devices.
 
 ## Visit this project
-link: //
+Link: <a href='https://braianpx-weather-app.vercel.app/home'>braianpx-weather-app.vercel.app</a>
 
 ## Project Screens
 ![image](/client/src/assets/img/weather-app.png)
